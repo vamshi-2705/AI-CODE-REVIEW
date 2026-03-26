@@ -26,7 +26,8 @@ app.get('/test-backend-config', async (req, res) => {
     openaiKey: !!process.env.OPENAI_API_KEY,
     dbUrl: !!process.env.DATABASE_URL,
     frontendUrl: process.env.FRONTEND_URL || 'Not Set',
-    dbStatus: 'Testing...'
+    dbStatus: 'Testing...',
+    aiStatus: 'Testing...'
   };
   
   try {
@@ -35,6 +36,14 @@ app.get('/test-backend-config', async (req, res) => {
     status.dbStatus = 'Connected';
   } catch (err) {
     status.dbStatus = `Failed: ${err.message}`;
+  }
+
+  try {
+    const { reviewCodeWithGemini } = require('./services/geminiService');
+    await reviewCodeWithGemini('print("hi")', 'Python', []);
+    status.aiStatus = 'Gemini Working';
+  } catch (err) {
+    status.aiStatus = `Gemini Failed: ${err.message}`;
   }
   
   res.json(status);
