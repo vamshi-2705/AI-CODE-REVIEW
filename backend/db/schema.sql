@@ -1,5 +1,15 @@
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS users (
   id             SERIAL PRIMARY KEY,
+  email          VARCHAR(255) UNIQUE NOT NULL,
+  password_hash  VARCHAR(255),
+  name           VARCHAR(255),
+  google_id      VARCHAR(255) UNIQUE,
+  created_at     TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+  id             SERIAL PRIMARY KEY,
+  user_id        INT REFERENCES users(id) ON DELETE CASCADE,
   original_code  TEXT NOT NULL,
   improved_code  TEXT NOT NULL,
   suggestions    JSONB NOT NULL,
@@ -8,10 +18,21 @@ CREATE TABLE reviews (
   created_at     TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE qna (
+CREATE TABLE IF NOT EXISTS qna (
   id             SERIAL PRIMARY KEY,
+  user_id        INT REFERENCES users(id) ON DELETE CASCADE,
   question       TEXT NOT NULL,
   answer         TEXT NOT NULL,
   model_used     VARCHAR(50),
+  created_at     TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS conversions (
+  id             SERIAL PRIMARY KEY,
+  user_id        INT REFERENCES users(id) ON DELETE CASCADE,
+  source_lang    VARCHAR(50),
+  target_lang    VARCHAR(50),
+  source_code    TEXT NOT NULL,
+  target_code    TEXT NOT NULL,
   created_at     TIMESTAMP DEFAULT NOW()
 );
