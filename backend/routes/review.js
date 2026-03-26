@@ -49,7 +49,10 @@ router.post('/review', async (req, res) => {
     
   } catch (error) {
     console.error("AI call failed or DB error:", error);
-    res.status(500).json({ error: "AI service unavailable" });
+    res.status(500).json({ 
+      error: "AI service unavailable", 
+      details: error.message 
+    });
   }
 });
 

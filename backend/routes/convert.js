@@ -75,7 +75,7 @@ ${code}
     
   } catch (error) {
     console.error("Streaming error:", error);
-    res.write(`data: ${JSON.stringify({ error: "AI service unavailable" })}\n\n`);
+    res.write(`data: ${JSON.stringify({ error: "AI service unavailable", details: error.message })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }

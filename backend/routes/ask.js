@@ -41,7 +41,10 @@ router.post('/ask', async (req, res) => {
     if (error.status === 429) {
       return res.status(429).json({ error: "OpenAI quota exceeded. Please switch to Gemini." });
     }
-    res.status(500).json({ error: "AI service unavailable" });
+    res.status(500).json({ 
+      error: "AI service unavailable",
+      details: error.message 
+    });
   }
 });
 
@@ -95,7 +98,10 @@ router.post('/ask/stream', async (req, res) => {
     
   } catch (error) {
     console.error("Streaming error:", error);
-    res.write(`data: ${JSON.stringify({ error: "AI service unavailable or quota exceeded" })}\n\n`);
+    res.write(`data: ${JSON.stringify({ 
+      error: "AI service unavailable or quota exceeded",
+      details: error.message 
+    })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }
