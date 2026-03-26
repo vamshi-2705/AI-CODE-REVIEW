@@ -4,7 +4,7 @@ require('dotenv').config();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const reviewCodeWithGemini = async (code, language, modes = []) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   
   const modeInstructions = modes.length > 0 
     ? `Focus heavily on the following aspects: ${modes.join(', ')}.` 
@@ -43,7 +43,7 @@ Code: ${code}"`;
 };
 
 const askQuestionWithGemini = async (question) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   const prompt = `System: "You are an expert software engineer and helpful coding assistant."\n\nUser: "${question}"\n\nProvide a clear, detailed explanation. Include code examples formatted in markdown where appropriate.`;
   const result = await model.generateContent(prompt);
   const response = await result.response;
@@ -51,7 +51,7 @@ const askQuestionWithGemini = async (question) => {
 };
 
 const askQuestionWithGeminiStream = async (question) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   const prompt = `System: "You are an expert software engineer and helpful coding assistant."\n\nUser: "${question}"\n\nProvide a clear, detailed explanation. Include code examples formatted in markdown where appropriate.`;
   const result = await model.generateContentStream(prompt);
   return result.stream;
