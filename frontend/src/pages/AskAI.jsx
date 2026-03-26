@@ -181,6 +181,55 @@ const AskAI = () => {
     }
   };
 
+  const CodeBlock = ({ children, language, ...props }) => {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+      navigator.clipboard.writeText(children);
+      setCopied(true);
+      toast.success('Code copied to clipboard!');
+      setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+      <div className="rounded-lg overflow-hidden my-4 border border-white/5 shadow-sm w-full mx-auto max-w-full group">
+        <div className="bg-[#1a1a1a] px-4 py-2 flex justify-between items-center border-b border-white/5">
+          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{language}</span>
+          <button 
+            onClick={handleCopy}
+            className="flex items-center space-x-1.5 text-gray-400 hover:text-white transition-colors"
+          >
+            {copied ? (
+              <>
+                <div className="w-3.5 h-3.5 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <svg className="w-2.5 h-2.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider">Copied!</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                <span className="text-[10px] font-bold uppercase tracking-wider">Copy</span>
+              </>
+            )}
+          </button>
+        </div>
+        <SyntaxHighlighter
+          {...props}
+          children={String(children).replace(/\n$/, '')}
+          style={vscDarkPlus}
+          language={language}
+          PreTag="div"
+          customStyle={{ margin: 0, padding: '1.25rem', background: '#0d0d0d', fontSize: '13px' }}
+        />
+      </div>
+    );
+  };
+
   const renderMarkdown = (content) => (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -188,16 +237,11 @@ const AskAI = () => {
         code({node, inline, className, children, ...props}) {
           const match = /language-(\w+)/.exec(className || '')
           return !inline && match ? (
-            <div className="rounded-lg overflow-hidden my-4 border border-white/5 shadow-sm w-full mx-auto max-w-full">
-              <SyntaxHighlighter
-                {...props}
-                children={String(children).replace(/\n$/, '')}
-                style={vscDarkPlus}
-                language={match[1]}
-                PreTag="div"
-                customStyle={{ margin: 0, padding: '1.25rem', background: '#0d0d0d', fontSize: '13px' }}
-              />
-            </div>
+            <CodeBlock 
+              language={match[1]} 
+              children={children} 
+              {...props} 
+            />
           ) : (
             <code {...props} className="bg-[#2f2f2f] px-1.5 py-0.5 rounded-md text-gray-200 font-mono text-[13px] border border-white/10">
               {children}
