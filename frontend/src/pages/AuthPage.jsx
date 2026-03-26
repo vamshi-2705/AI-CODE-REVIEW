@@ -160,7 +160,7 @@ const AuthPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       className="w-full pl-11 pr-4 py-3 bg-[#121212] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm"
-                      placeholder="vamshi Krishna"
+                      placeholder="Your Name"
                     />
                   </div>
                 </div>
