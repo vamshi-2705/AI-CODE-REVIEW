@@ -18,7 +18,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes); // Unprotected
-app.get('/api/test-config', async (req, res) => {
+
+// Unprotected diagnostic route
+app.get('/test-backend-config', async (req, res) => {
   const status = {
     geminiKey: !!process.env.GEMINI_API_KEY,
     openaiKey: !!process.env.OPENAI_API_KEY,
@@ -38,9 +40,11 @@ app.get('/api/test-config', async (req, res) => {
   res.json(status);
 });
 
-app.use('/api', authenticateToken, reviewRoutes);
-app.use('/api', authenticateToken, askRoutes);
-app.use('/api/convert', authenticateToken, convertRoutes);
+// Protected routes (middleware only applies to these)
+app.use('/api', authenticateToken); 
+app.use('/api', reviewRoutes);
+app.use('/api', askRoutes);
+app.use('/api/convert', convertRoutes);
 
 app.get('/', (req, res) => {
   res.send('AI Code Review API is running.');
