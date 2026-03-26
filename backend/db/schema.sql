@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   original_code  TEXT NOT NULL,
   improved_code  TEXT NOT NULL,
   suggestions    JSONB NOT NULL,
+  metrics        JSONB,
   language       VARCHAR(50),
   model_used     VARCHAR(50),
   created_at     TIMESTAMP DEFAULT NOW()
@@ -30,9 +31,9 @@ CREATE TABLE IF NOT EXISTS qna (
 CREATE TABLE IF NOT EXISTS conversions (
   id             SERIAL PRIMARY KEY,
   user_id        INT REFERENCES users(id) ON DELETE CASCADE,
-  source_lang    VARCHAR(50),
-  target_lang    VARCHAR(50),
-  source_code    TEXT NOT NULL,
-  target_code    TEXT NOT NULL,
+  original_code  TEXT NOT NULL,
+  converted_code TEXT NOT NULL,
+  target_language VARCHAR(50),
+  model_used     VARCHAR(50),
   created_at     TIMESTAMP DEFAULT NOW()
 );
