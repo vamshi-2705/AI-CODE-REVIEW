@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require('../db/pool');
 const { reviewCodeWithGemini } = require('../services/geminiService');
 const { reviewCodeWithOpenAI } = require('../services/openaiService');
+const { reviewCodeWithGroq } = require('../services/groqService');
 
 // POST /api/review
 router.post('/review', async (req, res) => {
@@ -18,6 +19,8 @@ router.post('/review', async (req, res) => {
       resultJSON = await reviewCodeWithGemini(code, language, modes || []);
     } else if (model === 'OpenAI') {
       resultJSON = await reviewCodeWithOpenAI(code, language, modes || []);
+    } else if (model === 'Groq') {
+      resultJSON = await reviewCodeWithGroq(code, language, modes || []);
     } else {
       return res.status(400).json({ error: "Invalid model selected" });
     }

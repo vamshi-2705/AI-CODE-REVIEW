@@ -6,7 +6,7 @@ import CodeEditor from '../components/CodeEditor';
 import { submitCodeReview } from '../api/reviewApi';
 
 const LANGUAGES = ['JavaScript', 'Python', 'Java', 'C++', 'TypeScript', 'Go', 'Rust'];
-const MODELS = ['Gemini', 'OpenAI'];
+const MODELS = ['Groq', 'Gemini', 'OpenAI'];
 
 const ANALYSIS_MODES = [
   { id: 'quality', label: 'Code Quality' },
@@ -160,7 +160,9 @@ const Home = () => {
                 disabled={loading}
               >
                 {MODELS.map(m => (
-                  <option key={m} value={m}>{m} {m === 'Gemini' ? '(Primary)' : '(Fallback)'}</option>
+                  <option key={m} value={m}>
+                    {m} {m === 'Groq' ? '(Fast & Precise)' : m === 'Gemini' ? '(Primary)' : '(Fallback)'}
+                  </option>
                 ))}
               </select>
             </div>

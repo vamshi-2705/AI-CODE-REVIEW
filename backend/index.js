@@ -24,10 +24,12 @@ app.get('/test-backend-config', async (req, res) => {
   const status = {
     geminiKey: !!process.env.GEMINI_API_KEY,
     openaiKey: !!process.env.OPENAI_API_KEY,
+    groqKey: !!process.env.GROQ_API_KEY,
     dbUrl: !!process.env.DATABASE_URL,
     frontendUrl: process.env.FRONTEND_URL || 'Not Set',
     dbStatus: 'Testing...',
-    aiStatus: 'Testing...'
+    aiStatus: 'Testing...',
+    groqStatus: 'Testing...'
   };
   
   try {
@@ -44,6 +46,18 @@ app.get('/test-backend-config', async (req, res) => {
     status.aiStatus = 'Gemini Working';
   } catch (err) {
     status.aiStatus = `Gemini Failed: ${err.message}`;
+  }
+
+  try {
+    if (status.groqKey) {
+      const { askQuestionWithGroq } = require('./services/groqService');
+      await askQuestionWithGroq('respond with "ok"');
+      status.groqStatus = 'Groq Working';
+    } else {
+      status.groqStatus = 'Groq Key Missing';
+    }
+  } catch (err) {
+    status.groqStatus = `Groq Failed: ${err.message}`;
   }
   
   res.json(status);

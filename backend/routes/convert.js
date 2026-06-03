@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require('../db/pool');
 const { askQuestionWithGeminiStream } = require('../services/geminiService');
 const { askQuestionWithOpenAIStream } = require('../services/openaiService');
+const { askQuestionWithGroqStream } = require('../services/groqService');
 
 router.post('/stream', async (req, res) => {
   const { code, targetLanguage, model } = req.body;
@@ -36,6 +37,15 @@ ${code}
       }
     } else if (model === 'OpenAI') {
       const stream = await askQuestionWithOpenAIStream(prompt);
+      for await (const chunk of stream) {
+        const text = chunk.choices[0]?.delta?.content || "";
+        if (text) {
+          fullAnswer += text;
+          res.write(`data: ${JSON.stringify({ text })}\n\n`);
+        }
+      }
+    } else if (model === 'Groq') {
+      const stream = await askQuestionWithGroqStream(prompt);
       for await (const chunk of stream) {
         const text = chunk.choices[0]?.delta?.content || "";
         if (text) {

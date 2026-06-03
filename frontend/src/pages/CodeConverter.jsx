@@ -4,7 +4,7 @@ import { Loader2, Sparkles, Code2, ArrowRightLeft, Copy, Check } from 'lucide-re
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-const MODELS = ['Gemini', 'OpenAI'];
+const MODELS = ['Groq', 'Gemini', 'OpenAI'];
 const LANGUAGES = [
   'Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 
   'C#', 'Go', 'Rust', 'Swift', 'Kotlin', 'PHP', 'Ruby', 'Dart'
@@ -206,7 +206,9 @@ const CodeConverter = () => {
                   disabled={loading}
                 >
                   {MODELS.map(m => (
-                    <option key={m} value={m}>{m} {m === 'Gemini' ? '(Fast)' : '(Precise)'}</option>
+                    <option key={m} value={m}>
+                      {m} {m === 'Groq' ? '(Fast & Precise)' : m === 'Gemini' ? '(Fast)' : '(Precise)'}
+                    </option>
                   ))}
                 </select>
 

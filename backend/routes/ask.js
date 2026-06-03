@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require('../db/pool');
 const { askQuestionWithGemini, askQuestionWithGeminiStream } = require('../services/geminiService');
 const { askQuestionWithOpenAI, askQuestionWithOpenAIStream } = require('../services/openaiService');
+const { askQuestionWithGroq, askQuestionWithGroqStream } = require('../services/groqService');
 
 // POST /api/ask
 router.post('/ask', async (req, res) => {
@@ -18,6 +19,8 @@ router.post('/ask', async (req, res) => {
       answer = await askQuestionWithGemini(question);
     } else if (model === 'OpenAI') {
       answer = await askQuestionWithOpenAI(question);
+    } else if (model === 'Groq') {
+      answer = await askQuestionWithGroq(question);
     } else {
       return res.status(400).json({ error: "Invalid model selected" });
     }
@@ -71,6 +74,15 @@ router.post('/ask/stream', async (req, res) => {
       }
     } else if (model === 'OpenAI') {
       const stream = await askQuestionWithOpenAIStream(question);
+      for await (const chunk of stream) {
+        const text = chunk.choices[0]?.delta?.content || "";
+        if (text) {
+          fullAnswer += text;
+          res.write(`data: ${JSON.stringify({ text })}\n\n`);
+        }
+      }
+    } else if (model === 'Groq') {
+      const stream = await askQuestionWithGroqStream(question);
       for await (const chunk of stream) {
         const text = chunk.choices[0]?.delta?.content || "";
         if (text) {

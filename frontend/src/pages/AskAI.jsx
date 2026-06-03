@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-const MODELS = ['Gemini', 'OpenAI'];
+const MODELS = ['Groq', 'Gemini', 'OpenAI'];
 
 const AskAI = () => {
   const { user } = useAuth();
@@ -386,7 +386,7 @@ const AskAI = () => {
                 >
                   {MODELS.map(m => (
                     <option className="bg-[#2f2f2f] text-white" key={m} value={m}>
-                      {m} {m === 'Gemini' ? '(Fast)' : '(Precise)'}
+                      {m} {m === 'Groq' ? '(Fast & Precise)' : m === 'Gemini' ? '(Fast)' : '(Precise)'}
                     </option>
                   ))}
                 </select>
