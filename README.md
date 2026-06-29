@@ -1,4 +1,4 @@
-# 🚀 ReviewAI: Full-Stack AI-Powered Code Review Tool
+# 🚀 ReviewAI: Full-Stack AI-Powered Code Review Tool <a href="https://codereview-ruby.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/Live%20Demo-Deployed-brightgreen?style=for-the-badge&logo=vercel&logoColor=white" align="right" alt="Live Demo" /></a>
 
 ReviewAI is a premium, full-stack developer tool designed to help engineers ship better code faster. It offers instant, AI-driven code reviews, real-time code translations, and an interactive coding assistant—all wrapped in a sleek, glassmorphic dark-mode interface. 
 
