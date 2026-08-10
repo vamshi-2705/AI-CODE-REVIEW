@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Code2, Loader2, Mail, Lock, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ArrowRight, Code2, Loader2, Mail, Lock, User, Play } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
@@ -10,6 +10,14 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('expired') === 'true') {
+      toast.error('Your session expired or is invalid. Please sign in again.');
+    }
+  }, [location.search]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -19,6 +27,27 @@ const AuthPage = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDemoLogin = async () => {
+    setLoading(true);
+    try {
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const res = await fetch(`${baseUrl}/auth/demo`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Demo login failed');
+
+      login(data.user, data.token);
+      navigate('/');
+    } catch (err) {
+      toast.error(err.message || 'Failed to login with Demo Account');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
@@ -125,17 +154,29 @@ const AuthPage = () => {
               </p>
            </div>
            
-           <div className="flex justify-center mb-6 overflow-hidden rounded-xl">
-             <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={() => toast.error('Google Sign-In failed.')}
-                useOneTap
-                theme="filled_black"
-                shape="rectangular"
-                text="continue_with"
-                size="large"
-                width="100%"
-             />
+           <div className="space-y-3 mb-6">
+             <button
+                type="button"
+                onClick={handleDemoLogin}
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center shadow-lg shadow-emerald-600/20"
+             >
+                <Play className="w-4 h-4 mr-2 fill-current" />
+                <span>Try Demo Account (Instant Access)</span>
+             </button>
+
+             <div className="flex justify-center overflow-hidden rounded-xl">
+               <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => toast.error('Google Sign-In failed.')}
+                  useOneTap
+                  theme="filled_black"
+                  shape="rectangular"
+                  text="continue_with"
+                  size="large"
+                  width="100%"
+               />
+             </div>
            </div>
 
            <div className="flex items-center mb-6">

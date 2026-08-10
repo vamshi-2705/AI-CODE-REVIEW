@@ -115,4 +115,35 @@ router.post('/google', async (req, res) => {
   }
 });
 
+// POST /api/auth/demo
+router.post('/demo', async (req, res) => {
+  try {
+    const demoEmail = 'demo@code-review.ai';
+    let user;
+    
+    try {
+      let userResult = await pool.query('SELECT * FROM users WHERE email = $1', [demoEmail]);
+      if (userResult.rows.length === 0) {
+        const insertResult = await pool.query(
+          'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING id, name, email',
+          ['Demo Developer', demoEmail]
+        );
+        user = insertResult.rows[0];
+      } else {
+        user = userResult.rows[0];
+      }
+    } catch (dbErr) {
+      console.warn('Database fallback for demo user:', dbErr.message);
+      user = { id: 9999, name: 'Demo Developer', email: demoEmail };
+    }
+
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+
+  } catch (error) {
+    console.error('Demo Auth Error:', error);
+    res.status(500).json({ error: 'Failed to authenticate demo user.' });
+  }
+});
+
 module.exports = router;

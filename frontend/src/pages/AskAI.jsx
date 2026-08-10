@@ -113,6 +113,13 @@ const AskAI = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          toast.error('Session expired or invalid. Please log in again.');
+          window.location.href = '/login?expired=true';
+          return;
+        }
         throw new Error('Failed to get answer');
       }
 

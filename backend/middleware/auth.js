@@ -5,10 +5,10 @@ const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (!token) return res.status(401).json({ error: 'Access denied. Please log in.' });
+  if (!token) return res.status(401).json({ error: 'Access denied. Token missing. Please log in.' });
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ error: 'Invalid or expired session.' });
+    if (err) return res.status(403).json({ error: 'Session expired or invalid session token. Please log in again.' });
     req.user = user;
     next();
   });
