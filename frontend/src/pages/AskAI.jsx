@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { Loader2, Sparkles, Send, Cpu, User, Edit, Search, Image as ImageIcon, LayoutGrid, Cloud, Folder, ChevronRight, Menu } from 'lucide-react';
+import { Loader2, Sparkles, Send, Cpu, User, Edit, Search, Image as ImageIcon, LayoutGrid, Cloud, Folder, ChevronRight, Menu, MessageSquare } from 'lucide-react';
 import { submitQuestion, getQnaHistory, getQnaById } from '../api/reviewApi';
 import { useAuth } from '../context/AuthContext';
 
