@@ -270,47 +270,47 @@ const AskAI = () => {
   );
 
   return (
-    <div className="fixed top-[56px] bottom-0 left-0 right-0 flex bg-[#0d1117] overflow-hidden z-40">
+    <div className="fixed top-[56px] bottom-0 left-0 right-0 flex bg-[#080B12] overflow-hidden z-40">
       
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-[260px]' : 'w-0'} transition-all duration-200 bg-[#090d16] flex-shrink-0 flex flex-col h-full text-slate-200 font-sans border-r border-slate-800 overflow-hidden`}>
+      <div className={`${sidebarOpen ? 'w-[260px]' : 'w-0'} transition-all duration-200 bg-[#0D121B] flex-shrink-0 flex flex-col h-full text-[#F1F5F9] font-sans border-r border-[#202938] overflow-hidden`}>
         <div className="p-3 w-[260px]">
-          <button onClick={handleNewChat} className="flex items-center w-full px-3 py-2 rounded-md bg-[#161b22] hover:bg-[#21262d] border border-slate-800 transition-colors text-xs font-medium text-slate-200 mb-2">
-            <Edit className="w-3.5 h-3.5 mr-2 text-indigo-400" /> 
+          <button onClick={handleNewChat} className="flex items-center w-full px-3 py-2 rounded-lg bg-[#111722] hover:bg-[#080B12] border border-[#202938] transition-colors text-xs font-medium text-[#F1F5F9] mb-2">
+            <Edit className="w-3.5 h-3.5 mr-2 text-[#3B82F6]" /> 
             <span>New chat</span>
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-3 py-1 w-[260px] custom-scrollbar">
-          <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-2">History</h3>
+          <h3 className="text-[11px] font-semibold text-[#64748B] uppercase tracking-wider mb-2 px-2">History</h3>
           <div className="space-y-0.5">
             {history.map(item => (
-              <button key={item.id} onClick={() => loadChat(item.id)} className="w-full text-left truncate text-xs px-2.5 py-1.5 rounded-md hover:bg-[#161b22] text-slate-300 transition-colors">
+              <button key={item.id} onClick={() => loadChat(item.id)} className="w-full text-left truncate text-xs px-2.5 py-1.5 rounded-md hover:bg-[#111722] text-[#94A3B8] hover:text-[#F1F5F9] transition-colors">
                 {item.question_preview}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="p-3 mx-2 mb-2 w-[244px] rounded-md flex items-center mt-auto border border-slate-800 bg-[#161b22]">
-          <div className="w-7 h-7 rounded-md bg-slate-800 text-slate-200 flex items-center justify-center text-xs font-bold mr-2.5 border border-slate-700">
+        <div className="p-3 mx-2 mb-2 w-[244px] rounded-lg flex items-center mt-auto border border-[#202938] bg-[#111722]">
+          <div className="w-7 h-7 rounded-md bg-[#0D121B] text-[#F1F5F9] flex items-center justify-center text-xs font-bold mr-2.5 border border-[#202938]">
             {getInitials(user?.name)}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xs font-medium truncate text-slate-200">{user?.name || 'Developer'}</span>
-            <span className="text-[10px] text-slate-500 truncate">{user?.email || 'Logged in'}</span>
+            <span className="text-xs font-medium truncate text-[#F1F5F9]">{user?.name || 'Developer'}</span>
+            <span className="text-[10px] text-[#64748B] truncate">{user?.email || 'Logged in'}</span>
           </div>
         </div>
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative h-full bg-[#0d1117]">
+      <div className="flex-1 flex flex-col relative h-full bg-[#080B12]">
         
         {/* Mobile Sidebar Toggle */}
         <div className="absolute top-3 left-3 z-50">
           <button 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-md text-[#94A3B8] hover:text-white hover:bg-[#111722] transition-colors"
             title="Toggle Sidebar"
           >
             <Menu className="w-4 h-4" />
@@ -319,13 +319,13 @@ const AskAI = () => {
 
         {!isChatStarted ? (
           <div className="flex-1 flex flex-col items-center justify-center px-4 text-center">
-             <div className="w-12 h-12 bg-[#161b22] border border-slate-800 rounded-lg mb-4 flex items-center justify-center text-indigo-400">
+             <div className="w-12 h-12 bg-[#111722] border border-[#202938] rounded-xl mb-4 flex items-center justify-center text-[#3B82F6]">
                <MessageSquare className="w-6 h-6" />
              </div>
-             <h1 className="text-xl font-bold text-white tracking-tight mb-2">
+             <h1 className="text-xl font-bold text-[#F1F5F9] tracking-tight mb-2">
                Ask about your code...
              </h1>
-             <p className="text-xs text-slate-400 max-w-sm">
+             <p className="text-xs text-[#94A3B8] max-w-sm">
                Get help refactoring logic, diagnosing stack traces, or exploring best practices.
              </p>
           </div>
@@ -335,15 +335,15 @@ const AskAI = () => {
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex max-w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {msg.role === 'ai' && (
-                    <div className="flex-shrink-0 w-7 h-7 rounded-md bg-indigo-950/60 border border-indigo-800/40 text-indigo-400 flex items-center justify-center mr-3 mt-1 text-xs font-bold">
+                    <div className="flex-shrink-0 w-7 h-7 rounded-md bg-[#0D121B] border border-[#202938] text-[#3B82F6] flex items-center justify-center mr-3 mt-1 text-xs font-bold">
                       AI
                     </div>
                   )}
                   <div 
                     className={`
                       ${msg.role === 'user' 
-                        ? 'bg-slate-800 text-slate-100 px-4 py-2.5 rounded-lg border border-slate-700 text-xs sm:text-sm' 
-                        : 'text-slate-200 font-sans text-xs sm:text-sm min-w-0 w-full'}
+                        ? 'bg-[#111722] text-[#F1F5F9] px-4 py-2.5 rounded-xl border border-[#202938] text-xs sm:text-sm' 
+                        : 'text-[#F1F5F9] font-sans text-xs sm:text-sm min-w-0 w-full'}
                     `}
                   >
                     {msg.role === 'user' ? (
@@ -359,11 +359,11 @@ const AskAI = () => {
               
               {loading && (
                 <div className="flex max-w-full justify-start animate-fade-in-up">
-                  <div className="flex-shrink-0 w-7 h-7 rounded-md bg-indigo-950/60 border border-indigo-800/40 text-indigo-400 flex items-center justify-center mr-3 mt-1 text-xs font-bold">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-md bg-[#0D121B] border border-[#202938] text-[#3B82F6] flex items-center justify-center mr-3 mt-1 text-xs font-bold">
                     AI
                   </div>
-                  <div className="flex items-center text-slate-400 h-8 text-xs font-mono">
-                    <Loader2 className="w-4 h-4 animate-spin mr-2 text-indigo-400" />
+                  <div className="flex items-center text-[#94A3B8] h-8 text-xs font-mono">
+                    <Loader2 className="w-4 h-4 animate-spin mr-2 text-[#3B82F6]" />
                     Thinking...
                   </div>
                 </div>
@@ -374,16 +374,16 @@ const AskAI = () => {
         )}
 
         {/* Input Area */}
-        <div className="w-full pb-5 pt-2 px-4 bg-[#0d1117] border-t border-slate-800/50">
+        <div className="w-full pb-5 pt-2 px-4 bg-[#080B12] border-t border-[#202938]">
           <div className="max-w-3xl mx-auto">
-            <div className="relative group bg-[#161b22] rounded-md border border-slate-800 focus-within:border-slate-700 overflow-hidden flex flex-col shadow-sm">
+            <div className="relative group bg-[#111722] rounded-xl border border-[#202938] focus-within:border-[#3B82F6] overflow-hidden flex flex-col shadow-sm">
               <textarea
                 ref={textareaRef}
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about your code..."
-                className="w-full bg-transparent text-slate-100 p-3 pb-10 outline-none resize-none font-sans text-xs sm:text-sm min-h-[48px] max-h-[180px]"
+                className="w-full bg-transparent text-[#F1F5F9] p-3 pb-10 outline-none resize-none font-sans text-xs sm:text-sm min-h-[48px] max-h-[180px] placeholder-[#64748B]"
                 rows={1}
                 disabled={loading}
               />
@@ -392,11 +392,11 @@ const AskAI = () => {
                 <select 
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
-                  className="bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-400 cursor-pointer outline-none hover:text-white transition-colors py-0.5 px-2 rounded-md"
+                  className="bg-[#0B0F15] border border-[#202938] text-[11px] font-medium text-[#94A3B8] cursor-pointer outline-none hover:text-[#F1F5F9] transition-colors py-0.5 px-2 rounded-md"
                   disabled={loading}
                 >
                   {MODELS.map(m => (
-                    <option className="bg-[#161b22] text-slate-200" key={m} value={m}>
+                    <option className="bg-[#111722] text-[#F1F5F9]" key={m} value={m}>
                       {m} {m === 'Groq' ? '(Fast)' : m === 'Gemini' ? '(Primary)' : '(Fallback)'}
                     </option>
                   ))}
@@ -405,13 +405,13 @@ const AskAI = () => {
                 <button
                   onClick={handleSubmit}
                   disabled={loading || !input.trim()}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="bg-[#3B82F6] hover:bg-[#2563EB] text-[#F1F5F9] p-1.5 rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <Send className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
-            <p className="text-center text-[10px] text-slate-500 font-mono mt-2">
+            <p className="text-center text-[10px] text-[#64748B] font-mono mt-2">
               Verify code suggestions before using in production environments.
             </p>
           </div>

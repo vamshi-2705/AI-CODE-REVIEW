@@ -95,14 +95,14 @@ const History = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 min-h-[calc(100vh-4rem)]">
       
-      <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="mb-6 pb-4 border-b border-slate-200 dark:border-[#202938] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Session History</h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">Browse past code reviews, AI chats, and conversions.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] tracking-tight">Session History</h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-[#94A3B8] mt-0.5">Browse past code reviews, AI chats, and conversions.</p>
         </div>
         <button
           onClick={() => navigate('/')}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md text-xs font-medium transition-colors shadow-sm flex items-center justify-center space-x-1.5 w-full sm:w-auto"
+          className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-[#F1F5F9] rounded-lg text-xs font-medium transition-colors shadow-sm flex items-center justify-center space-x-1.5 w-full sm:w-auto"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>New Review</span>
@@ -110,30 +110,30 @@ const History = () => {
       </div>
 
       {error ? (
-        <div className="p-4 bg-rose-950/30 text-rose-300 rounded-md border border-rose-800/40 text-xs flex items-center shadow-sm">
+        <div className="p-4 bg-[#EF4444]/10 text-[#EF4444] rounded-lg border border-[#EF4444]/30 text-xs flex items-center shadow-sm">
           <AlertCircle className="w-4 h-4 mr-2" />
           <span>{error}</span>
         </div>
       ) : history.length === 0 ? (
-        <div className="text-center py-16 bg-white dark:bg-[#161b22] rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center">
-          <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800/60 rounded-md flex items-center justify-center mb-3 text-slate-400">
+        <div className="text-center py-16 bg-white dark:bg-[#111722] rounded-xl border border-slate-200 dark:border-[#202938] flex flex-col items-center">
+          <div className="w-12 h-12 bg-slate-100 dark:bg-[#0D121B] rounded-lg flex items-center justify-center mb-3 text-[#64748B]">
             <Inbox className="h-6 w-6" />
           </div>
-          <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1">No session history</h3>
-          <p className="text-slate-500 dark:text-slate-400 max-w-sm text-xs mb-5">Your past code reviews, AI chats, and conversions will appear here.</p>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-[#F1F5F9] mb-1">No session history</h3>
+          <p className="text-slate-500 dark:text-[#94A3B8] max-w-sm text-xs mb-5">Your past code reviews, AI chats, and conversions will appear here.</p>
           <button
             onClick={() => navigate('/')}
-            className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md text-slate-800 dark:text-slate-200 text-xs font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center"
+            className="px-4 py-2 bg-slate-100 dark:bg-[#0D121B] border border-slate-300 dark:border-[#202938] rounded-lg text-slate-800 dark:text-[#F1F5F9] text-xs font-medium hover:bg-slate-200 dark:hover:bg-[#111722] transition-colors flex items-center"
           >
             <span>Start your first session</span>
             <ChevronRight className="w-3.5 h-3.5 ml-1" />
           </button>
         </div>
       ) : (
-        <div className="bg-white dark:bg-[#161b22] rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="bg-white dark:bg-[#111722] rounded-xl overflow-hidden border border-slate-200 dark:border-[#202938] shadow-sm">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-[#0d1117] font-semibold text-slate-500 dark:text-slate-400">
+            <table className="min-w-full divide-y divide-slate-200 dark:divide-[#202938] text-left text-xs">
+              <thead className="bg-slate-50 dark:bg-[#0D121B] font-semibold text-slate-500 dark:text-[#94A3B8]">
                 <tr>
                   <th scope="col" className="px-4 py-3">Date</th>
                   <th scope="col" className="px-4 py-3">Type & Language</th>
@@ -142,41 +142,41 @@ const History = () => {
                   <th scope="col" className="px-4 py-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
+              <tbody className="divide-y divide-slate-200 dark:divide-[#202938]">
                 {history.map((item) => (
                   <tr 
                     key={`${item.type}-${item.id}`} 
                     onClick={() => handleRowClick(item)}
-                    className={`hover:bg-slate-50 dark:hover:bg-[#1f242d] cursor-pointer transition-colors ${fetchingId === item.id ? 'opacity-50' : ''}`}
+                    className={`hover:bg-slate-50 dark:hover:bg-[#0D121B] cursor-pointer transition-colors ${fetchingId === item.id ? 'opacity-50' : ''}`}
                   >
-                    <td className="px-4 py-3 whitespace-nowrap font-mono text-slate-700 dark:text-slate-300">
+                    <td className="px-4 py-3 whitespace-nowrap font-mono text-slate-700 dark:text-[#F1F5F9]">
                       {new Date(item.created_at).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <span className={`px-2 py-0.5 text-[11px] font-semibold rounded ${
-                        item.type === 'review' ? 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/40' :
-                        item.type === 'qna' ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/40' :
-                        'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/40'
+                        item.type === 'review' ? 'bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30' :
+                        item.type === 'qna' ? 'bg-[#22C55E]/10 text-[#22C55E] border border-[#22C55E]/30' :
+                        'bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/30'
                       }`}>
                         {item.type === 'review' ? 'Code Review' : item.type === 'qna' ? 'Ask AI' : 'Convert'}
                       </span>
-                      <span className="ml-2 font-mono text-slate-500 dark:text-slate-400">
+                      <span className="ml-2 font-mono text-slate-500 dark:text-[#94A3B8]">
                         {item.displayLanguage}
                       </span>
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap font-mono text-slate-600 dark:text-slate-400">
+                    <td className="px-4 py-3 whitespace-nowrap font-mono text-slate-600 dark:text-[#94A3B8]">
                       {item.model_used}
                     </td>
-                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400 max-w-xs font-mono">
-                      <div className="truncate bg-slate-100 dark:bg-[#0d1117] border border-slate-200 dark:border-slate-800 px-2 py-1 rounded text-[11px]">
+                    <td className="px-4 py-3 text-slate-500 dark:text-[#94A3B8] max-w-xs font-mono">
+                      <div className="truncate bg-slate-100 dark:bg-[#0B0F15] border border-slate-200 dark:border-[#202938] px-2 py-1 rounded text-[11px]">
                          {item.original_code_preview.replace(/\n/g, ' ')}
                       </div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-right">
                       {fetchingId === item.id ? (
-                         <Loader2 className="w-4 h-4 text-indigo-400 animate-spin ml-auto" />
+                         <Loader2 className="w-4 h-4 text-[#3B82F6] animate-spin ml-auto" />
                       ) : (
-                         <ChevronRight className="w-4 h-4 text-slate-400 ml-auto" />
+                         <ChevronRight className="w-4 h-4 text-[#64748B] ml-auto" />
                       )}
                     </td>
                   </tr>

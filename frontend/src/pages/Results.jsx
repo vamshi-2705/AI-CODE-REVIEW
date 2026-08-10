@@ -5,15 +5,15 @@ import SuggestionCard from '../components/SuggestionCard';
 
 const MetricCard = ({ label, value, subtext, color }) => {
   const colorMap = {
-    emerald: 'bg-emerald-950/20 border-emerald-800/40 text-emerald-400',
-    purple: 'bg-indigo-950/20 border-indigo-800/40 text-indigo-400',
-    blue: 'bg-sky-950/20 border-sky-800/40 text-sky-400',
-    amber: 'bg-amber-950/20 border-amber-800/40 text-amber-400',
-    rose: 'bg-rose-950/20 border-rose-800/40 text-rose-400'
+    emerald: 'bg-[#22C55E]/10 border-[#22C55E]/30 text-[#22C55E]',
+    purple: 'bg-[#7C5CFC]/10 border-[#7C5CFC]/30 text-[#7C5CFC]',
+    blue: 'bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]',
+    amber: 'bg-[#F59E0B]/10 border-[#F59E0B]/30 text-[#F59E0B]',
+    rose: 'bg-[#EF4444]/10 border-[#EF4444]/30 text-[#EF4444]'
   };
 
   return (
-    <div className={`p-4 rounded-md border ${colorMap[color]} shadow-sm flex flex-col justify-center`}>
+    <div className={`p-4 rounded-xl border ${colorMap[color]} shadow-sm flex flex-col justify-center`}>
       <span className="text-xs font-medium opacity-80 mb-1">{label}</span>
       <span className="text-2xl font-bold mb-0.5">{value}</span>
       <span className="text-[10px] font-mono opacity-70 uppercase">{subtext}</span>
@@ -49,16 +49,16 @@ const Results = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col h-full">
-      <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-200 dark:border-slate-800 pb-4 gap-4">
+      <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-200 dark:border-[#202938] pb-4 gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Review Results</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-[#F1F5F9] tracking-tight">Review Results</h1>
           <div className="flex gap-2 text-xs mt-1.5">
-            <span className="px-2.5 py-0.5 rounded bg-slate-100 dark:bg-[#161b22] border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-mono flex items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-1.5"></span>
+            <span className="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-[#111722] border border-slate-200 dark:border-[#202938] text-slate-700 dark:text-[#F1F5F9] font-mono flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] mr-1.5"></span>
               {language}
             </span>
-            <span className="px-2.5 py-0.5 rounded bg-slate-100 dark:bg-[#161b22] border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-mono flex items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+            <span className="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-[#111722] border border-slate-200 dark:border-[#202938] text-slate-700 dark:text-[#F1F5F9] font-mono flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mr-1.5"></span>
               {model}
             </span>
           </div>
@@ -66,13 +66,13 @@ const Results = () => {
         <div className="flex gap-2 w-full md:w-auto">
           <button
             onClick={() => navigate('/')}
-            className="flex-1 md:flex-none px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xs font-medium"
+            className="flex-1 md:flex-none px-4 py-2 bg-slate-100 dark:bg-[#0D121B] border border-slate-300 dark:border-[#202938] rounded-lg text-slate-800 dark:text-[#F1F5F9] hover:bg-slate-200 dark:hover:bg-[#111722] transition-colors text-xs font-medium"
           >
             Review Another
           </button>
           <button
             onClick={() => navigate('/history')}
-            className="flex-1 md:flex-none px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md transition-colors text-xs font-medium shadow-sm"
+            className="flex-1 md:flex-none px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-[#F1F5F9] rounded-lg transition-colors text-xs font-medium shadow-sm"
           >
             View History
           </button>
@@ -83,7 +83,7 @@ const Results = () => {
         
         {result.metrics && (
           <section>
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
+            <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider mb-3">
               Complexity Metrics
             </h2>
             
@@ -117,7 +117,7 @@ const Results = () => {
         )}
 
         <section>
-          <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider mb-3">
             Suggestions ({result.suggestions?.length || 0})
           </h2>
           
@@ -128,15 +128,15 @@ const Results = () => {
               ))}
             </div>
           ) : (
-             <div className="p-6 bg-emerald-950/20 text-emerald-300 rounded-md border border-emerald-800/30 flex flex-col items-center text-center">
-              <h3 className="font-semibold text-sm mb-1 text-emerald-400">Clean Code Execution</h3>
-              <p className="max-w-md text-xs text-slate-400">No major vulnerabilities, bugs, or style issues were detected during this review.</p>
+             <div className="p-6 bg-[#22C55E]/10 text-[#22C55E] rounded-xl border border-[#22C55E]/30 flex flex-col items-center text-center">
+              <h3 className="font-semibold text-sm mb-1 text-[#22C55E]">Clean Code Execution</h3>
+              <p className="max-w-md text-xs text-[#94A3B8]">No major vulnerabilities, bugs, or style issues were detected during this review.</p>
             </div>
           )}
         </section>
 
         <section>
-          <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider mb-3">
             Code Comparison
           </h2>
           
