@@ -270,77 +270,80 @@ const AskAI = () => {
   );
 
   return (
-    <div className="fixed top-[73px] bottom-0 left-0 right-0 flex bg-[#212121] overflow-hidden z-40">
+    <div className="fixed top-[56px] bottom-0 left-0 right-0 flex bg-[#0d1117] overflow-hidden z-40">
       
-      {/* Sidebar - ChatGPT Style */}
-      <div className={`${sidebarOpen ? 'w-[260px]' : 'w-0'} transition-all duration-300 bg-[#171717] flex-shrink-0 flex flex-col h-full text-[#ECECEC] font-sans border-r border-white/5 overflow-hidden`}>
+      {/* Sidebar */}
+      <div className={`${sidebarOpen ? 'w-[260px]' : 'w-0'} transition-all duration-200 bg-[#090d16] flex-shrink-0 flex flex-col h-full text-slate-200 font-sans border-r border-slate-800 overflow-hidden`}>
         <div className="p-3 w-[260px]">
-          <button onClick={handleNewChat} className="flex items-center w-full px-3 py-2.5 rounded-lg hover:bg-[#212121] transition-colors text-sm mb-4">
-            <Edit className="w-4 h-4 mr-3" /> 
-            <span className="font-medium">New chat</span>
+          <button onClick={handleNewChat} className="flex items-center w-full px-3 py-2 rounded-md bg-[#161b22] hover:bg-[#21262d] border border-slate-800 transition-colors text-xs font-medium text-slate-200 mb-2">
+            <Edit className="w-3.5 h-3.5 mr-2 text-indigo-400" /> 
+            <span>New chat</span>
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-3 py-2 mt-2 w-[260px] custom-scrollbar">
-          <h3 className="text-xs font-semibold text-gray-400 mb-3 px-3">Your chats</h3>
+        <div className="flex-1 overflow-y-auto px-3 py-1 w-[260px] custom-scrollbar">
+          <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-2">History</h3>
           <div className="space-y-0.5">
             {history.map(item => (
-              <button key={item.id} onClick={() => loadChat(item.id)} className="w-full text-left truncate text-sm px-3 py-2 rounded-lg hover:bg-[#212121] text-gray-300 transition-colors">
+              <button key={item.id} onClick={() => loadChat(item.id)} className="w-full text-left truncate text-xs px-2.5 py-1.5 rounded-md hover:bg-[#161b22] text-slate-300 transition-colors">
                 {item.question_preview}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="p-3 mx-2 mb-2 w-[244px] rounded-xl hover:bg-[#212121] transition-colors cursor-pointer flex items-center mt-auto border border-white/5 bg-[#212121]">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0 shadow-sm border border-white/10">
+        <div className="p-3 mx-2 mb-2 w-[244px] rounded-md flex items-center mt-auto border border-slate-800 bg-[#161b22]">
+          <div className="w-7 h-7 rounded-md bg-slate-800 text-slate-200 flex items-center justify-center text-xs font-bold mr-2.5 border border-slate-700">
             {getInitials(user?.name)}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-semibold truncate text-[#ececec]">{user?.name || 'User'}</span>
-            <span className="text-xs text-gray-400 truncate">{user?.email || 'Logged in'}</span>
+            <span className="text-xs font-medium truncate text-slate-200">{user?.name || 'Developer'}</span>
+            <span className="text-[10px] text-slate-500 truncate">{user?.email || 'Logged in'}</span>
           </div>
         </div>
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative h-full bg-[#212121]">
+      <div className="flex-1 flex flex-col relative h-full bg-[#0d1117]">
         
         {/* Mobile Sidebar Toggle */}
-        <div className="absolute top-4 left-4 z-50">
+        <div className="absolute top-3 left-3 z-50">
           <button 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
             title="Toggle Sidebar"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-4 h-4" />
           </button>
         </div>
 
         {!isChatStarted ? (
-          <div className="flex-1 flex flex-col items-center justify-center -translate-y-10 px-4">
-             <div className="w-16 h-16 bg-white rounded-full mb-6 flex items-center justify-center shadow-lg pointer-events-none">
-               <Sparkles className="w-8 h-8 text-black" />
+          <div className="flex-1 flex flex-col items-center justify-center px-4 text-center">
+             <div className="w-12 h-12 bg-[#161b22] border border-slate-800 rounded-lg mb-4 flex items-center justify-center text-indigo-400">
+               <MessageSquare className="w-6 h-6" />
              </div>
-             <h1 className="text-3xl font-bold mb-10 text-white tracking-tight">
-               How can I help you today?
+             <h1 className="text-xl font-bold text-white tracking-tight mb-2">
+               Ask about your code...
              </h1>
+             <p className="text-xs text-slate-400 max-w-sm">
+               Get help refactoring logic, diagnosing stack traces, or exploring best practices.
+             </p>
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto pb-6 pt-16 px-4 md:px-0 scroll-smooth custom-scrollbar">
-            <div className="max-w-3xl mx-auto space-y-6 flex flex-col">
+          <div className="flex-1 overflow-y-auto pb-6 pt-12 px-4 md:px-0 scroll-smooth custom-scrollbar">
+            <div className="max-w-3xl mx-auto space-y-5 flex flex-col">
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex max-w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {msg.role === 'ai' && (
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center mr-4 mt-1 border border-white/10">
-                      <Sparkles className="w-5 h-5 text-black" />
+                    <div className="flex-shrink-0 w-7 h-7 rounded-md bg-indigo-950/60 border border-indigo-800/40 text-indigo-400 flex items-center justify-center mr-3 mt-1 text-xs font-bold">
+                      AI
                     </div>
                   )}
                   <div 
                     className={`
                       ${msg.role === 'user' 
-                        ? 'bg-[#2f2f2f] text-white px-5 py-3 rounded-3xl rounded-tr-sm ' 
-                        : 'text-gray-200 font-sans min-w-0 w-full'}
+                        ? 'bg-slate-800 text-slate-100 px-4 py-2.5 rounded-lg border border-slate-700 text-xs sm:text-sm' 
+                        : 'text-slate-200 font-sans text-xs sm:text-sm min-w-0 w-full'}
                     `}
                   >
                     {msg.role === 'user' ? (
@@ -356,11 +359,12 @@ const AskAI = () => {
               
               {loading && (
                 <div className="flex max-w-full justify-start animate-fade-in-up">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center mr-4 mt-1 border border-white/10">
-                    <Sparkles className="w-5 h-5 text-black" />
+                  <div className="flex-shrink-0 w-7 h-7 rounded-md bg-indigo-950/60 border border-indigo-800/40 text-indigo-400 flex items-center justify-center mr-3 mt-1 text-xs font-bold">
+                    AI
                   </div>
-                  <div className="flex items-center text-gray-400 h-10">
-                    <Loader2 className="w-5 h-5 animate-spin mr-3 text-white" />
+                  <div className="flex items-center text-slate-400 h-8 text-xs font-mono">
+                    <Loader2 className="w-4 h-4 animate-spin mr-2 text-indigo-400" />
+                    Thinking...
                   </div>
                 </div>
               )}
@@ -370,16 +374,16 @@ const AskAI = () => {
         )}
 
         {/* Input Area */}
-        <div className="w-full pb-6 pt-2 px-4">
+        <div className="w-full pb-5 pt-2 px-4 bg-[#0d1117] border-t border-slate-800/50">
           <div className="max-w-3xl mx-auto">
-            <div className="relative group bg-[#2f2f2f] rounded-2xl border border-white/10 focus-within:ring-1 focus-within:ring-white/30 overflow-hidden flex flex-col shadow-lg">
+            <div className="relative group bg-[#161b22] rounded-md border border-slate-800 focus-within:border-slate-700 overflow-hidden flex flex-col shadow-sm">
               <textarea
                 ref={textareaRef}
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder={isChatStarted ? "Reply to AI..." : "Message AI Coding Assistant..."}
-                className="w-full bg-transparent text-white p-4 pb-12 outline-none resize-none font-sans min-h-[56px] max-h-[200px]"
+                placeholder="Ask about your code..."
+                className="w-full bg-transparent text-slate-100 p-3 pb-10 outline-none resize-none font-sans text-xs sm:text-sm min-h-[48px] max-h-[180px]"
                 rows={1}
                 disabled={loading}
               />
@@ -388,12 +392,12 @@ const AskAI = () => {
                 <select 
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
-                  className="bg-transparent text-xs font-semibold text-gray-400 cursor-pointer outline-none hover:text-white transition-colors py-1 px-1 rounded-md"
+                  className="bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-400 cursor-pointer outline-none hover:text-white transition-colors py-0.5 px-2 rounded-md"
                   disabled={loading}
                 >
                   {MODELS.map(m => (
-                    <option className="bg-[#2f2f2f] text-white" key={m} value={m}>
-                      {m} {m === 'Groq' ? '(Fast & Precise)' : m === 'Gemini' ? '(Fast)' : '(Precise)'}
+                    <option className="bg-[#161b22] text-slate-200" key={m} value={m}>
+                      {m} {m === 'Groq' ? '(Fast)' : m === 'Gemini' ? '(Primary)' : '(Fallback)'}
                     </option>
                   ))}
                 </select>
@@ -401,14 +405,14 @@ const AskAI = () => {
                 <button
                   onClick={handleSubmit}
                   disabled={loading || !input.trim()}
-                  className="bg-white hover:bg-gray-200 text-black p-1.5 rounded-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <Send className="w-4 h-4 ml-0.5" />
+                  <Send className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
-            <p className="text-center text-xs text-gray-500 font-medium mt-3">
-              AI can make mistakes. Verify critical code before implementing.
+            <p className="text-center text-[10px] text-slate-500 font-mono mt-2">
+              Verify code suggestions before using in production environments.
             </p>
           </div>
         </div>

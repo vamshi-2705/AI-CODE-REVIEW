@@ -130,73 +130,70 @@ const CodeConverter = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-8rem)] relative mx-auto w-full px-4 lg:px-8 py-6 max-w-[1600px]">
+    <div className="flex flex-col min-h-[calc(100vh-4rem)] max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
       
       {/* Header */}
-      <div className="mb-8 text-center animate-fade-in-up z-20 relative">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900 dark:text-white tracking-tight flex items-center justify-center">
-          <ArrowRightLeft className="w-10 h-10 mr-4 text-indigo-500 hidden sm:block" />
-          Code <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mx-2">Converter</span>
+      <div className="mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center">
+          <ArrowRightLeft className="w-5 h-5 mr-2.5 text-indigo-500" />
+          Code Converter
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium">
-          Instantly translate your source code from any language into a different programming language.
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+          Translate source code from any language into another target programming language.
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 h-full flex-grow relative z-10 animate-fade-in-up transition-all delay-100">
+      <div className="flex flex-col lg:flex-row gap-4 flex-grow">
         
         {/* Left Pane - Source Code */}
-        <div className="flex-1 flex flex-col bg-white dark:bg-[#1e1e1e] rounded-3xl border border-gray-200 dark:border-white/10 shadow-xl overflow-hidden min-h-[500px] group">
-          <div className="bg-gray-50 dark:bg-black/20 px-4 py-3 border-b border-gray-200 dark:border-white/5 flex items-center justify-between">
-             <div className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300">
-                <Code2 className="w-4 h-4 mr-2" /> Original Code
+        <div className="flex-1 flex flex-col bg-white dark:bg-[#161b22] rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[420px]">
+          <div className="bg-slate-100 dark:bg-[#0d1117] px-3.5 py-2.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+             <div className="flex items-center text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <Code2 className="w-3.5 h-3.5 mr-1.5 opacity-70" /> Source Code
              </div>
              
-             <div className="flex items-center space-x-3">
-               <span className="text-xs text-gray-500 font-medium">Auto-Detect</span>
+             <div className="flex items-center space-x-2">
+               <span className="text-[11px] text-slate-500 font-mono">Auto-Detect</span>
              </div>
           </div>
           
-          <div className="flex-1 relative w-full h-full p-0 m-0">
+          <div className="flex-1 relative w-full h-full p-0 m-0 bg-slate-950">
              <textarea
                value={sourceCode}
                onChange={(e) => setSourceCode(e.target.value)}
                onScroll={syncTextareaScroll}
                placeholder="// Paste your original code here..."
                spellCheck="false"
-               className="absolute inset-0 w-full h-full bg-transparent text-gray-800 dark:text-gray-200 font-mono text-sm p-4 outline-none resize-none"
+               className="absolute inset-0 w-full h-full bg-transparent text-slate-200 font-mono text-xs p-3.5 outline-none resize-none"
              />
           </div>
         </div>
 
-        {/* Translation Controls Overlay */}
-        <div className="lg:w-16 flex lg:flex-col items-center justify-center gap-4 py-2 lg:py-0 relative z-20">
-           
-           <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-gray-200 dark:border-white/10 flex items-center justify-center -my-3 lg:my-0 lg:-mx-8 z-30">
-               <button 
-                 onClick={handleConvert}
-                 disabled={loading || !sourceCode.trim()}
-                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                   loading || !sourceCode.trim() 
-                     ? 'bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 cursor-not-allowed' 
-                     : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md hover:shadow-indigo-500/30'
-                 }`}
-                 title="Convert Code"
-               >
-                 {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ArrowRightLeft className="w-5 h-5" />}
-               </button>
-           </div>
+        {/* Control Button Center Bar */}
+        <div className="flex lg:flex-col items-center justify-center py-1 lg:py-0">
+           <button 
+             onClick={handleConvert}
+             disabled={loading || !sourceCode.trim()}
+             className={`p-3 rounded-lg flex items-center justify-center transition-colors border ${
+               loading || !sourceCode.trim() 
+                 ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border-slate-300 dark:border-slate-700 cursor-not-allowed' 
+                 : 'bg-indigo-600 hover:bg-indigo-500 text-white border-indigo-600 shadow-sm'
+             }`}
+             title="Convert Code"
+           >
+             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRightLeft className="w-4 h-4" />}
+           </button>
         </div>
 
         {/* Right Pane - Target Code */}
-        <div className="flex-1 flex flex-col bg-[#1e1e1e] rounded-3xl border border-gray-200 dark:border-white/10 shadow-xl overflow-hidden min-h-[500px]">
-          <div className="bg-[#2d2d2d] px-4 py-3 border-b border-black/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
-             <div className="flex items-center w-full sm:w-auto">
-                <span className="text-sm font-semibold text-gray-300 mr-3">Target:</span>
+        <div className="flex-1 flex flex-col bg-white dark:bg-[#161b22] rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[420px]">
+          <div className="bg-slate-100 dark:bg-[#0d1117] px-3.5 py-2 border-b border-slate-200 dark:border-slate-800 flex flex-wrap justify-between items-center gap-2">
+             <div className="flex items-center">
+                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 mr-2">Target:</span>
                 <select 
                   value={targetLanguage}
                   onChange={(e) => setTargetLanguage(e.target.value)}
-                  className="bg-black/30 border border-white/10 text-white text-sm font-medium rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 p-1.5 shadow-sm transition-all outline-none"
+                  className="bg-slate-50 dark:bg-[#161b22] border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs font-medium rounded p-1 outline-none"
                   disabled={loading}
                 >
                   {LANGUAGES.map(l => (
@@ -205,16 +202,16 @@ const CodeConverter = () => {
                 </select>
              </div>
              
-             <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
+             <div className="flex items-center space-x-2">
                 <select 
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
-                  className="bg-black/30 border border-white/10 text-gray-300 text-xs font-medium rounded-md p-1.5 focus:ring-1 focus:ring-indigo-500 outline-none"
+                  className="bg-slate-50 dark:bg-[#161b22] border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-medium rounded p-1 outline-none"
                   disabled={loading}
                 >
                   {MODELS.map(m => (
                     <option key={m} value={m}>
-                      {m} {m === 'Groq' ? '(Fast & Precise)' : m === 'Gemini' ? '(Fast)' : '(Precise)'}
+                      {m} {m === 'Groq' ? '(Fast)' : m === 'Gemini' ? '(Primary)' : '(Fallback)'}
                     </option>
                   ))}
                 </select>
@@ -222,23 +219,24 @@ const CodeConverter = () => {
                 <button
                   onClick={handleCopy}
                   disabled={!convertedCode.trim()}
-                  className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-black/30 hover:bg-black/50 text-gray-300 hover:text-white transition-all focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center space-x-1 p-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors disabled:opacity-40"
+                  title="Copy code"
                 >
-                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
              </div>
           </div>
           
-          <div className="flex-1 w-full h-full relative p-0 m-0 overflow-y-auto custom-scrollbar bg-[#1e1e1e]">
+          <div className="flex-1 w-full h-full relative p-0 m-0 overflow-y-auto custom-scrollbar bg-slate-950">
             {!convertedCode && !loading ? (
-               <div className="absolute inset-0 flex items-center justify-center text-gray-600 font-medium">
-                  Converted code will appear here.
+               <div className="absolute inset-0 flex items-center justify-center text-slate-500 text-xs font-mono">
+                  // Converted code output will appear here
                </div>
             ) : (
                <SyntaxHighlighter
                  language={targetLanguage.toLowerCase()}
                  style={vscDarkPlus}
-                 customStyle={{ margin: 0, padding: '1rem', background: 'transparent', minHeight: '100%' }}
+                 customStyle={{ margin: 0, padding: '0.875rem', background: 'transparent', minHeight: '100%', fontSize: '12px' }}
                  wrapLines={true}
                  showLineNumbers={true}
                >

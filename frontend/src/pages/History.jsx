@@ -93,102 +93,90 @@ const History = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto min-h-[calc(100vh-8rem)] relative">
-      <div className="fixed top-20 right-0 w-[500px] h-[500px] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none z-[-1]"></div>
+    <div className="max-w-6xl mx-auto px-4 py-6 min-h-[calc(100vh-4rem)]">
       
-      <div className="mb-8 border-b border-gray-200/50 dark:border-white/10 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div className="flex items-center space-x-4">
-          <img src="/logo.png" alt="ReviewAI Logo" className="w-14 h-14 rounded-2xl shadow-[0_0_20px_rgba(79,70,229,0.3)] border border-white/20 object-cover" />
-          <div>
-            <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 tracking-tight">Review History</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">Browse and revisit your past AI sessions.</p>
-          </div>
+      <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Session History</h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">Browse past code reviews, AI chats, and conversions.</p>
         </div>
         <button
           onClick={() => navigate('/')}
-          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-all font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.98] flex items-center justify-center space-x-2 w-full sm:w-auto"
+          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md text-xs font-medium transition-colors shadow-sm flex items-center justify-center space-x-1.5 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-3.5 h-3.5" />
           <span>New Review</span>
         </button>
       </div>
 
       {error ? (
-        <div className="p-6 bg-red-50/80 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-2xl border border-red-200 dark:border-red-800/30 backdrop-blur-sm flex items-center justify-center shadow-sm">
-          <AlertCircle className="w-6 h-6 mr-3" />
-          <span className="font-semibold text-lg">{error}</span>
+        <div className="p-4 bg-rose-950/30 text-rose-300 rounded-md border border-rose-800/40 text-xs flex items-center shadow-sm">
+          <AlertCircle className="w-4 h-4 mr-2" />
+          <span>{error}</span>
         </div>
       ) : history.length === 0 ? (
-        <div className="text-center py-24 bg-white/60 dark:bg-slate-900/60 rounded-3xl border border-gray-200/50 dark:border-white/10 shadow-xl backdrop-blur-xl flex flex-col items-center">
-          <div className="w-20 h-20 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 ring-1 ring-indigo-100 dark:ring-indigo-500/20 shadow-inner">
-            <Inbox className="h-10 w-10 text-indigo-400 dark:text-indigo-500" />
+        <div className="text-center py-16 bg-white dark:bg-[#161b22] rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center">
+          <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800/60 rounded-md flex items-center justify-center mb-3 text-slate-400">
+            <Inbox className="h-6 w-6" />
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">No history yet</h3>
-          <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto text-lg mb-8">You haven't run any AI chats, conversions, or reviews yet. Your past sessions will appear here.</p>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1">No session history</h3>
+          <p className="text-slate-500 dark:text-slate-400 max-w-sm text-xs mb-5">Your past code reviews, AI chats, and conversions will appear here.</p>
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-white/10 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-all font-semibold shadow-sm hover:shadow active:scale-[0.98] flex items-center"
+            className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md text-slate-800 dark:text-slate-200 text-xs font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center"
           >
-            <span>Start your first AI session</span>
-            <ChevronRight className="w-4 h-4 ml-2 opacity-70" />
+            <span>Start your first session</span>
+            <ChevronRight className="w-3.5 h-3.5 ml-1" />
           </button>
         </div>
       ) : (
-        <div className="bg-white/80 dark:bg-slate-900/80 shadow-2xl rounded-3xl overflow-hidden border border-gray-200/50 dark:border-white/10 backdrop-blur-xl">
+        <div className="bg-white dark:bg-[#161b22] rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200/50 dark:divide-white/5">
-              <thead className="bg-gray-50/50 dark:bg-slate-800/50">
+            <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-left text-xs">
+              <thead className="bg-slate-50 dark:bg-[#0d1117] font-semibold text-slate-500 dark:text-slate-400">
                 <tr>
-                  <th scope="col" className="px-6 py-5 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    <div className="flex items-center"><Clock className="w-4 h-4 mr-2 opacity-70" /> Date</div>
-                  </th>
-                  <th scope="col" className="px-6 py-5 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    <div className="flex items-center"><Code2 className="w-4 h-4 mr-2 opacity-70" /> Language</div>
-                  </th>
-                  <th scope="col" className="px-6 py-5 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    <div className="flex items-center"><Cpu className="w-4 h-4 mr-2 opacity-70" /> Model</div>
-                  </th>
-                  <th scope="col" className="px-6 py-5 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Code Preview</th>
-                  <th scope="col" className="px-6 py-5"></th>
+                  <th scope="col" className="px-4 py-3">Date</th>
+                  <th scope="col" className="px-4 py-3">Type & Language</th>
+                  <th scope="col" className="px-4 py-3">Model</th>
+                  <th scope="col" className="px-4 py-3">Preview</th>
+                  <th scope="col" className="px-4 py-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-white/5">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                 {history.map((item) => (
                   <tr 
                     key={`${item.type}-${item.id}`} 
                     onClick={() => handleRowClick(item)}
-                    className={`hover:bg-indigo-50/30 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200 ${fetchingId === item.id ? 'opacity-50' : ''}`}
+                    className={`hover:bg-slate-50 dark:hover:bg-[#1f242d] cursor-pointer transition-colors ${fetchingId === item.id ? 'opacity-50' : ''}`}
                   >
-                    <td className="px-6 py-5 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">
-                      {new Date(item.created_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                    <td className="px-4 py-3 whitespace-nowrap font-mono text-slate-700 dark:text-slate-300">
+                      {new Date(item.created_at).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
                     </td>
-                    <td className="px-6 py-5 whitespace-nowrap">
-                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-lg ${
-                        item.type === 'review' ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 ring-indigo-500/30' :
-                        item.type === 'qna' ? 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 ring-emerald-500/30' :
-                        'bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 ring-amber-500/30'
-                      } ring-1 ring-inset`}>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <span className={`px-2 py-0.5 text-[11px] font-semibold rounded ${
+                        item.type === 'review' ? 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/40' :
+                        item.type === 'qna' ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/40' :
+                        'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/40'
+                      }`}>
                         {item.type === 'review' ? 'Code Review' : item.type === 'qna' ? 'Ask AI' : 'Convert'}
                       </span>
-                      <span className="ml-3 font-medium text-xs text-gray-500 dark:text-gray-400">
+                      <span className="ml-2 font-mono text-slate-500 dark:text-slate-400">
                         {item.displayLanguage}
                       </span>
                     </td>
-                    <td className="px-6 py-5 whitespace-nowrap text-sm font-medium text-gray-600 dark:text-gray-400">
-                      <span className="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 ring-1 ring-inset ring-gray-500/30">
-                        {item.model_used}
-                      </span>
+                    <td className="px-4 py-3 whitespace-nowrap font-mono text-slate-600 dark:text-slate-400">
+                      {item.model_used}
                     </td>
-                    <td className="px-6 py-5 text-sm text-gray-500 dark:text-gray-400 w-full max-w-xs font-mono">
-                      <div className="truncate bg-gray-50 dark:bg-[#1e1e1e] border border-gray-200/50 dark:border-white/5 px-2.5 py-1.5 rounded-md text-[13px]">
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400 max-w-xs font-mono">
+                      <div className="truncate bg-slate-100 dark:bg-[#0d1117] border border-slate-200 dark:border-slate-800 px-2 py-1 rounded text-[11px]">
                          {item.original_code_preview.replace(/\n/g, ' ')}
                       </div>
                     </td>
-                    <td className="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-4 py-3 whitespace-nowrap text-right">
                       {fetchingId === item.id ? (
-                         <Loader2 className="w-5 h-5 text-indigo-500 animate-spin ml-auto" />
+                         <Loader2 className="w-4 h-4 text-indigo-400 animate-spin ml-auto" />
                       ) : (
-                         <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-indigo-500 ml-auto transition-colors" />
+                         <ChevronRight className="w-4 h-4 text-slate-400 ml-auto" />
                       )}
                     </td>
                   </tr>

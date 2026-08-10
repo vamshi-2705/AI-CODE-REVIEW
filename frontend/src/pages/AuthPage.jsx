@@ -103,69 +103,60 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] flex items-center justify-center p-4 selection:bg-indigo-500/30">
-      <div className="w-full max-w-[1000px] bg-[#1a1a1a] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white/5">
+    <div className="min-h-screen bg-[#0d1117] text-slate-200 flex items-center justify-center p-4">
+      <div className="w-full max-w-[900px] bg-[#161b22] rounded-lg border border-slate-800 shadow-xl overflow-hidden flex flex-col md:flex-row">
         
-        {/* Left Side - Visual/Marketing */}
-        <div className="md:w-5/12 bg-gradient-to-br from-indigo-600 to-purple-700 p-10 flex flex-col justify-between relative overflow-hidden hidden md:flex">
-          {/* Abstract background shapes */}
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-white/10 blur-3xl mix-blend-overlay pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-purple-500/30 blur-3xl mix-blend-overlay pointer-events-none"></div>
-          
-          <div className="relative z-10 flex items-center space-x-3">
-             <img 
-               src="/logo.png" 
-               alt="AI Code Review Logo" 
-               className="w-10 h-10 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)] border border-white/20 object-cover" 
-             />
-             <span className="text-white text-xl font-bold tracking-tight">AI Code Review</span>
+        {/* Left Side - Practical Product Summary */}
+        <div className="md:w-5/12 bg-[#0d1117] p-8 sm:p-10 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800">
+          <div>
+            <div className="flex items-center space-x-2.5 mb-8">
+              <img 
+                src="/logo.png" 
+                alt="ReviewAI Logo" 
+                className="w-8 h-8 rounded-md border border-slate-700 object-cover" 
+              />
+              <span className="text-white text-lg font-bold tracking-tight">ReviewAI</span>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-white leading-tight">
+                AI-assisted code review for developers.
+              </h2>
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                Review code, find bugs, scan security vulnerabilities, and improve your implementation before merging.
+              </p>
+            </div>
           </div>
 
-          <div className="relative z-10 space-y-6 mt-12 mb-auto">
-             <h2 className="text-4xl font-extrabold text-white leading-tight">
-               Build, Review, and <br/> Compile <span className="text-indigo-200">Faster.</span>
-             </h2>
-             <p className="text-indigo-100 text-sm leading-relaxed max-w-sm">
-               Join our secure platform to get instant AI-powered code reviews, multi-language conversational debugging, and seamless translation.
-             </p>
-          </div>
-
-          <div className="relative z-10 flex items-center space-x-4">
-             <div className="flex -space-x-3">
-               {[1,2,3,4].map(i => (
-                 <div key={i} className={`w-8 h-8 rounded-full border-2 border-indigo-600 flex items-center justify-center text-[10px] font-bold text-white bg-slate-800`}>
-                   +
-                 </div>
-               ))}
-             </div>
-             <span className="text-indigo-200 text-xs font-medium">Join 10k+ developers</span>
+          <div className="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500 font-mono">
+            v1.0.0 &bull; Fast AI Review Utility
           </div>
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full md:w-7/12 p-8 sm:p-12 lg:p-16 flex flex-col justify-center bg-[#1e1e1e]">
+        <div className="w-full md:w-7/12 p-8 sm:p-10 flex flex-col justify-center bg-[#161b22]">
            
-           <div className="mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">
-                {isLogin ? 'Welcome back' : 'Create an account'}
+           <div className="mb-6">
+              <h2 className="text-xl font-bold text-white mb-1">
+                {isLogin ? 'Sign in to ReviewAI' : 'Create an account'}
               </h2>
-              <p className="text-gray-400 text-sm">
-                {isLogin ? 'Enter your details to sign in to your workspace' : 'Sign up to get started with AI Code Reviews'}
+              <p className="text-slate-400 text-xs">
+                {isLogin ? 'Enter your credentials to access your workspace' : 'Sign up to start reviewing your codebase'}
               </p>
            </div>
            
-           <div className="space-y-3 mb-6">
+           <div className="space-y-2.5 mb-5">
              <button
                 type="button"
                 onClick={handleDemoLogin}
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center shadow-lg shadow-emerald-600/20"
+                className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs py-2.5 px-4 rounded-md border border-slate-700 transition duration-150 flex items-center justify-center"
              >
-                <Play className="w-4 h-4 mr-2 fill-current" />
+                <Play className="w-3.5 h-3.5 mr-2 text-emerald-400 fill-current" />
                 <span>Try Demo Account (Instant Access)</span>
              </button>
 
-             <div className="flex justify-center overflow-hidden rounded-xl">
+             <div className="flex justify-center overflow-hidden rounded-md">
                <GoogleLogin
                   onSuccess={handleGoogleSuccess}
                   onError={() => toast.error('Google Sign-In failed.')}
@@ -179,20 +170,20 @@ const AuthPage = () => {
              </div>
            </div>
 
-           <div className="flex items-center mb-6">
-             <div className="flex-1 border-t border-white/10"></div>
-             <span className="px-4 text-xs tracking-wider text-gray-500 font-medium uppercase">Or continue with email</span>
-             <div className="flex-1 border-t border-white/10"></div>
+           <div className="flex items-center mb-5">
+             <div className="flex-1 border-t border-slate-800"></div>
+             <span className="px-3 text-[11px] tracking-wider text-slate-500 font-semibold uppercase">Or email</span>
+             <div className="flex-1 border-t border-slate-800"></div>
            </div>
 
-           <form onSubmit={handleSubmit} className="space-y-4">
+           <form onSubmit={handleSubmit} className="space-y-3.5">
               
               {!isLogin && (
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-400 ml-1">Full Name</label>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 mb-1">Full Name</label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <User className="h-4 w-4 text-gray-500" />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <User className="h-3.5 w-3.5 text-slate-500" />
                     </div>
                     <input
                       type="text"
@@ -200,18 +191,18 @@ const AuthPage = () => {
                       required={!isLogin}
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full pl-11 pr-4 py-3 bg-[#121212] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm"
+                      className="w-full pl-9 pr-3 py-2 bg-[#0d1117] border border-slate-800 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors font-medium text-xs"
                       placeholder="Your Name"
                     />
                   </div>
                 </div>
               )}
 
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-400 ml-1">Email Address</label>
+              <div>
+                <label className="block text-xs font-semibold text-slate-400 mb-1">Email Address</label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Mail className="h-4 w-4 text-gray-500" />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-3.5 w-3.5 text-slate-500" />
                   </div>
                   <input
                     type="email"
@@ -219,24 +210,19 @@ const AuthPage = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-11 pr-4 py-3 bg-[#121212] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm"
+                    className="w-full pl-9 pr-3 py-2 bg-[#0d1117] border border-slate-800 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors font-medium text-xs"
                     placeholder="you@example.com"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <div className="flex items-center justify-between ml-1">
-                  <label className="text-xs font-semibold text-gray-400">Password</label>
-                  {isLogin && (
-                     <button type="button" className="text-xs font-semibold text-indigo-400 hover:text-indigo-300">
-                        Forgot password?
-                     </button>
-                  )}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-semibold text-slate-400">Password</label>
                 </div>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Lock className="h-4 w-4 text-gray-500" />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-3.5 w-3.5 text-slate-500" />
                   </div>
                   <input
                     type="password"
@@ -244,7 +230,7 @@ const AuthPage = () => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full pl-11 pr-4 py-3 bg-[#121212] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm"
+                    className="w-full pl-9 pr-3 py-2 bg-[#0d1117] border border-slate-800 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors font-medium text-xs"
                     placeholder="••••••••"
                   />
                 </div>
@@ -253,19 +239,19 @@ const AuthPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center mt-6 focus:ring-4 focus:ring-indigo-500/50 shadow-lg shadow-indigo-500/20"
+                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs py-2.5 px-4 rounded-md transition duration-150 flex items-center justify-center mt-5 shadow-sm"
               >
-                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
                   <>
                     <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                   </>
                 )}
               </button>
            </form>
 
-           <div className="mt-6 text-center">
-              <p className="text-sm text-gray-400 font-medium">
+           <div className="mt-5 text-center">
+              <p className="text-xs text-slate-400 font-medium">
                 {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
                 <button
                   type="button"
